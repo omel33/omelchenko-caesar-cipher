@@ -10,32 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecryptEncrypt {
-    protected static void decrypt(String path, int key) {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(path))) {
-            StringBuilder decryptedContent = new StringBuilder();
-            while (fileReader.ready()) {
-                lines.add(fileReader.readLine());
-            }
-            System.out.println(decryptedContent.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String decrypt(List<String> lines, int key) {
+
         System.out.println("decryptFiles");
         StringBuilder decryptedContent = new StringBuilder();
         for (String line : lines) {
             decryptedContent.append(decryptLine(line, key)).append(System.lineSeparator());
         }
-        String outPut = path.replace("ENCRYPTED", "DECRYPTED");
-        try {
-            Files.write(Path.of(outPut), decryptedContent.toString().getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return decryptedContent.toString();
+
     }
 
 
-    private static String decryptLine(String line, int key) {
+    private String decryptLine(String line, int key) {
         StringBuilder decryptedLine = new StringBuilder();
         for (char character : line.toCharArray()) {
 
@@ -49,25 +36,19 @@ public class DecryptEncrypt {
     }
 
 
-    protected static void encrypt(String path, int key) {
-        try {
-            String content = new String(Files.readAllBytes(Paths.get(path)));
+    public String encrypt(List<String> lines, int key) {
             StringBuilder encryptedContent = new StringBuilder();
-
-            for (char c : content.toCharArray()) {
+        for (String line:lines) {
+            for (char c : line.toCharArray()) {
                 if (Character.isLetter(c)) {
                     char base = Character.isUpperCase(c) ? 'A' : 'a';
                     c = (char) ((c - base + key) % 26 + base);
                 }
                 encryptedContent.append(c);
             }
-
-            Files.write(Paths.get("C:\\Users\\Аня\\IdeaProjects\\Exemple\\src\\main\\resources\\File-ENCRYPTED.txt"),
-                    encryptedContent.toString().getBytes());
-            System.out.println("encryptFiles");
-        } catch (IOException e) {
-            e.printStackTrace();
+            encryptedContent.append(System.lineSeparator());
         }
+            return encryptedContent.toString();
 
 
     }

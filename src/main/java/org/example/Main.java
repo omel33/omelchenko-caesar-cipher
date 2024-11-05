@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import static java.lang.module.ModuleDescriptor.read;
@@ -12,8 +14,6 @@ import static java.lang.module.ModuleDescriptor.read;
 
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    private static final String PATH = "src/main/resources/File.txt";
-
     public static void main(String[] args) {
 
         if (args.length != 3) {
@@ -46,79 +46,81 @@ public class Main {
             System.out.println("NumberFormatException on " + key);
             return;
         }
+        if ((Command.DECRYPT).equals(inputCmd)) {
+            DecryptEncrypt.decrypt(path, keyAsNumber);
+        }
+        if ((Command.ENCRYPT).equals(inputCmd)) {
+            DecryptEncrypt.encrypt(path, keyAsNumber);
+        }
 
     }
+
 
 //    public static void decrypt(String path, int key) {
-
-    public static void decrypt(String path, int key) {
-        final String path1 = "src/main/resources/File.txt";
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(path1))) {
-            StringBuilder decryptedContent = new StringBuilder();
-            while (fileReader.ready()) {
-                final String line = fileReader.readLine();
-                decryptedContent.append(decryptLine(line, key)).append("\n");
-            }
-            System.out.println(decryptedContent.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-//        FileSystem fileSystem = FileSystem.getFileSystem();
-//        final String path2 = "src/main/resources/File.txt";
-//        fileSystem.create(path2);
-//        System.out.println("Файл успішно створений");
-//        try (InputStream inputStream = fileSystem.newInputStream(path2)) {
-//            System.out.print("Вміст файлу:\t");
-//            System.out.println(read(inputStream));
+//        List<String> lines = new ArrayList<>();
+//        try (BufferedReader fileReader = new BufferedReader(new FileReader(path))) {
+//            StringBuilder decryptedContent = new StringBuilder();
+//            while (fileReader.ready()) {
+//                lines.add(fileReader.readLine());
+//            }
+//            System.out.println(decryptedContent.toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
 //        }
-//        try (final OutputStream outputStream = fileSystem.compare(path2)) {
-//            outputStream.write("Exstra".getBytes());
-//            System.out.println("Дані записані у файл");
+//        System.out.println("decryptFiles");
+//        StringBuilder decryptedContent = new StringBuilder();
+//        for (String line : lines) {
+//            decryptedContent.append(decryptLine(line, key)).append(System.lineSeparator());
+//        }
+//        String outPut = path.replace("ENCRYPTED", "DECRYPTED");
+//        try {
+//            Files.write(Path.of(outPut), decryptedContent.toString().getBytes());
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-//        try (InputStream inputStream = fileSystem.newInputStream(path2)) {
-//            System.out.print("Вміст файлу:\t");
-//            System.out.println(read(inputStream));
+//    }
+//
+//
+//    private static String decryptLine(String line, int key) {
+//        StringBuilder decryptedLine = new StringBuilder();
+//        for (char character : line.toCharArray()) {
+//
+//            if (Character.isLetter(character)) {
+//                char base = Character.isLowerCase(character) ? 'a' : 'A';
+//                character = (char) ((character - base - key + 26) % 26 + base);
+//            }
+//            decryptedLine.append(character);
 //        }
-
-
-    private static String decryptLine(String line, int key) {
-        StringBuilder decryptedLine = new StringBuilder();
-        for (char character : line.toCharArray()) {
-
-            if (Character.isLetter(character)) {
-                char base = Character.isLowerCase(character) ? 'a' : 'A';
-                character = (char) ((character - base - key + 26) % 26 + base);
-            }
-            decryptedLine.append(character);
-        }
-        return decryptedLine.toString();
-    }
-//    Files.createFile(Path.of("C:\\Users\\Аня\\IdeaProjects\\Exemple\\src\\main\\resources\\FileDECRYPT.txt"));
-//    FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Аня\\IdeaProjects\\Exemple" +
-//      "\\src\\main\\resources\\File.txt");
-//     System.out.println(fileOutputStream);
-//     Path read = Paths.get("C:\\Users\\Аня\\IdeaProjects\\Exemple\\src\\main\\resources\\File.txt");
-//    FileSystem fileSystem = FileSystem.
-//    final String read = "C:\\Users\\Аня\\IdeaProjects\\Exemple\\src\\main\\resources\\File.txt";
-//    fileSystem;
-
-
-    private static void encrypt(String path, int key) {
-        try {
-            String content = new String(Files.readAllBytes(Paths.get("File.txt")));
-            System.out.println(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//        return decryptedLine.toString();
+//    }
+//
+//
+//    private static void encrypt(String path, int key) {
+//        try {
+//            String content = new String(Files.readAllBytes(Paths.get(path)));
+//            StringBuilder encryptedContent = new StringBuilder();
+//
+//            for (char c : content.toCharArray()) {
+//                if (Character.isLetter(c)) {
+//                    char base = Character.isUpperCase(c) ? 'A' : 'a';
+//                    c = (char) ((c - base + key) % 26 + base);
+//                }
+//                encryptedContent.append(c);
+//            }
+//
+//            Files.write(Paths.get("C:\\Users\\Аня\\IdeaProjects\\Exemple\\src\\main\\resources\\File-ENCRYPTED.txt"),
+//                    encryptedContent.toString().getBytes());
+//            System.out.println("encryptFiles");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//    }
 
 
     private static void fileServis(String file) {
-        Path path = Paths.get("src/main/resources/File.txt");
+        Path path = Paths.get("src/main/resources/File-ENCRYPTED.txt");
         System.out.println(path);
 
     }
@@ -134,6 +136,3 @@ public class Main {
 }
 
 
-//ланрцюг if-else взалежності від команди для кожного випадку пустий метод приймающий ключ та шлях
-// створити тектсовий документ та загрузити його для дікріпт та енкріпт в їх методах
-//після завантажженя файлу вивкести в консоль

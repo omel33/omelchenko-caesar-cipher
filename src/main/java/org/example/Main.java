@@ -12,8 +12,12 @@ import static java.lang.module.ModuleDescriptor.read;
 public class Main {
 
     public static void main(String[] args) {
+        var raner=new Raner();
         var processor = new DecryptEncrypt();
         var fileServise = new FileServise();
+        if(raner.shoudUseCli()){
+            args=raner.getArgsFromUser();
+        }
         if (args.length != 3) {
             System.out.println("Expected 3 args, not but receive :" + args.length);
             return;
@@ -47,7 +51,7 @@ public class Main {
         if ((Command.DECRYPT).equals(inputCmd)) {
             var lines = fileServise.readLines(path);
             var decryptData = processor.decrypt(lines, keyAsNumber);
-            if(!path.contains("ENCRYPTED")) {
+            if (!path.contains("ENCRYPTED")) {
                 throw new RuntimeException("Incorect file extension");
             }
             var outPutPath = path.replace("ENCRYPTED", "DECRYPTED");
@@ -56,29 +60,12 @@ public class Main {
         if ((Command.ENCRYPT).equals(inputCmd)) {
             var lines = fileServise.readLines(path);
             var encryptData = processor.encrypt(lines, keyAsNumber);
-            if(!path.endsWith(".txt")){
+            if (!path.endsWith(".txt")) {
                 throw new RuntimeException("Incorect file extension");
             }
             var outPutPath = path.replace(".txt", "-ENCRYPTED.txt");
             fileServise.write(outPutPath, encryptData);
         }
-
-
-//        private static void fileServis (String file){
-//            Path path = Paths.get("src/main/resources/File-ENCRYPTED.txt");
-//            System.out.println(path);
-//
-//        }
     }
-//    public static void commandTake(String commandAnother){
-//        commandAnother=null;
-//        if (commandAnother.equals(encrypt())) {
-//            return;
-//        }
-//        if (commandAnother.equals(decrypt())){
-//              return;
-//        }
-//        System.out.println("put command"+commandAnother);
 }
-
 

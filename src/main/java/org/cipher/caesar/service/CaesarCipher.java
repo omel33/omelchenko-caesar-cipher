@@ -1,15 +1,8 @@
-package org.example;
+package org.cipher.caesar.service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
-public class DecryptEncrypt {
+public class CaesarCipher {
     public String decrypt(List<String> lines, int key) {
 
         System.out.println("decryptFiles");

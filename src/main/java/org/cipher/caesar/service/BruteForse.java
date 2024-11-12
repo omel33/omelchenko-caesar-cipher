@@ -1,4 +1,4 @@
-package org.example;
+package org.cipher.caesar.service;
 
 public class BruteForse {
     public void runBruteForse(String[] text){

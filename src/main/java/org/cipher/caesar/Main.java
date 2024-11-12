@@ -1,4 +1,9 @@
-package org.example;
+package org.cipher.caesar;
+
+import org.cipher.caesar.enums.CommandEnum;
+import org.cipher.caesar.io.FileServise;
+import org.cipher.caesar.service.CaesarCipher;
+import org.cipher.caesar.service.Raner;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         var raner=new Raner();
-        var processor = new DecryptEncrypt();
+        var processor = new CaesarCipher();
         var fileServise = new FileServise();
         if(raner.shoudUseCli()){
             args=raner.getArgsFromUser();
@@ -26,9 +31,9 @@ public class Main {
         String command = args[0];
         String path = args[1];
         String key = args[2];
-        Command[] cmdValues = Command.values();
-        Command inputCmd = null;
-        for (Command cmd : cmdValues) {
+        CommandEnum[] cmdValues = CommandEnum.values();
+        CommandEnum inputCmd = null;
+        for (CommandEnum cmd : cmdValues) {
             if (cmd.toString().equals(command)) {
                 inputCmd = cmd;
             }
@@ -48,7 +53,7 @@ public class Main {
             System.out.println("NumberFormatException on " + key);
             return;
         }
-        if ((Command.DECRYPT).equals(inputCmd)) {
+        if ((CommandEnum.DECRYPT).equals(inputCmd)) {
             var lines = fileServise.readLines(path);
             var decryptData = processor.decrypt(lines, keyAsNumber);
             if (!path.contains("ENCRYPTED")) {
@@ -57,7 +62,7 @@ public class Main {
             var outPutPath = path.replace("ENCRYPTED", "DECRYPTED");
             fileServise.write(outPutPath, decryptData);
         }
-        if ((Command.ENCRYPT).equals(inputCmd)) {
+        if ((CommandEnum.ENCRYPT).equals(inputCmd)) {
             var lines = fileServise.readLines(path);
             var encryptData = processor.encrypt(lines, keyAsNumber);
             if (!path.endsWith(".txt")) {

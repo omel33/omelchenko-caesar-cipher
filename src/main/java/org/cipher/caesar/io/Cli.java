@@ -1,12 +1,12 @@
-package org.example;
+package org.cipher.caesar.io;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Cli {
-    public static void runCli(String commandUser) {
-        Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+
+    public void runCli(String commandUser) {
+
         String command;
 
         System.out.println("Enter a command (ENCRYPT, DECRYPT, BRUTE_FORCE)):");
@@ -30,6 +30,11 @@ public class Cli {
                     System.out.println("Unknown command");
             }
         }
+    }
+
+    public String getUserInput(String message) {
+        System.out.println(message);
+        return scanner.nextLine();
     }
 }
 

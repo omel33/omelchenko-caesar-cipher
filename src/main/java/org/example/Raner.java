@@ -14,7 +14,17 @@ public class Raner {
     }
 
     public String[] getArgsFromUser() {
-        //todo: implement
-        return null;
+       String[] args= null;
+       while (true){
+           System.out.println("Enter three arguments.");
+           String iput=scanner.nextLine();
+           args=iput.split("\\s+");
+           if(args.length==3){
+               break;
+           }else {
+               System.out.println("Invalid input");
+           }
+       }
+        return args;
     }
 }

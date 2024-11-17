@@ -2,7 +2,8 @@ package org.cipher.caesar.service;
 
 import java.util.List;
 
-public class CaesarCipher {
+public class CaesarCipher implements Cipher {
+@Override
     public String decrypt(List<String> lines, int key) {
 
         System.out.println("decryptFiles");
@@ -28,7 +29,7 @@ public class CaesarCipher {
         return decryptedLine.toString();
     }
 
-
+@Override
     public String encrypt(List<String> lines, int key) {
             StringBuilder encryptedContent = new StringBuilder();
         for (String line:lines) {

@@ -6,9 +6,9 @@ public class ConsoleCli implements Cli {
     private final Scanner scanner = new Scanner(System.in);
 
         @Override
-    public String getUserInput(String massedge) {
+    public String getUserInput(String message) {
 
-        System.out.println("Enter Y(y) for use Cli or use input args (any)");
+        System.out.println(message);
         return scanner.nextLine();
     }
 

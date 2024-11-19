@@ -17,14 +17,14 @@ public class Raner {
     private boolean shoudUseCli() {
         String input = cli.getUserInput("Enter Y(y) for use Cli or use input args (any)");
         System.out.println("User inPut: " + input);
-        return "Y".equals(input) || "y".equals(input);
+        return  "Y".equals(input) || "y".equals(input);
 
     }
 
     private String[] getArgsFromUser() {
         String[] args = new String[3];
 
-        args[0] = cli.getUserInput("Enter command:" + Arrays.toString(CommandEnum.values()));
+        args[0] = cli.getUserInput("Enter command:" + Arrays.toString(CommandEnum.values()) );
         args[1] = cli.getUserInput("Write path:");
         args[2] = cli.getUserInput("Write key:");
         return args;

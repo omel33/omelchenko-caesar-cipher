@@ -17,14 +17,14 @@ public class Raner {
     private boolean shoudUseCli() {
         String input = cli.getUserInput("Enter Y(y) for use Cli or use input args (any)");
         System.out.println("User inPut: " + input);
-        return  "Y".equals(input) || "y".equals(input);
+        return "Y".equals(input) || "y".equals(input);
 
     }
 
     private String[] getArgsFromUser() {
         String[] args = new String[3];
 
-        args[0] = cli.getUserInput("Enter command:" + Arrays.toString(CommandEnum.values()) );
+        args[0] = cli.getUserInput("Enter command:" + Arrays.toString(CommandEnum.values()));
         args[1] = cli.getUserInput("Write path:");
         args[2] = cli.getUserInput("Write key:");
         return args;
@@ -32,14 +32,13 @@ public class Raner {
 
     public void run(String[] args) {
 
-        if (shoudUseCli()) {
-            args = getArgsFromUser();
-        }
+
         if (args.length != 3) {
             System.out.println("Expected 3 args, not but receive :" + args.length);
-            return;
+            if (shoudUseCli()) {
+                args = getArgsFromUser();
+            }
         }
-
         String command = args[0];
         String path = args[1];
         String key = args[2];

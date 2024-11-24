@@ -34,8 +34,12 @@ what should be done in advance in app:
 - vocabulary: abcd..xyz012345679{symbolsArray}
 
 
+run with out argumens:
+java -jar CaesarCipher.jar 
 
-java -jar MyApp.jar -f c://file.txt
+
+
+
 
 original: hello world
 encrypted(+1): ifmmp xpsme
